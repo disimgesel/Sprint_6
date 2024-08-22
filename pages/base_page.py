@@ -1,5 +1,6 @@
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from locators.base_page_locators import BasePageLocators
 import allure
 
 
@@ -21,10 +22,17 @@ class BasePage:
     def click_on_element(self, locator):
         self.driver.find_element(*locator).click()
 
+    @allure.step('Клик по элементу JS')
+    def click_on_element_js(self, locator):
+        self.wait_and_find_element(locator)
+        element = self.driver.find_element(*locator)
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        self.driver.execute_script("arguments[0].click();", element)
+
     @allure.step('Клик на кнопку разрешения использования cookies')
-    def click_cookie_accept(self, locator, timeout=15):
-        WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
-        return self.driver.find_element(*locator).click()
+    def click_cookie_accept(self, timeout=15):
+        WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(BasePageLocators.BUTTON_ACCEPT_COOKIE))
+        return self.driver.find_element(*BasePageLocators.BUTTON_ACCEPT_COOKIE).click()
 
     @allure.step('Ожидание прогрузки элемента и скролл до него')
     def wait_element(self, locator):
@@ -50,6 +58,6 @@ class BasePage:
         self.driver.switch_to.window(self.driver.window_handles[1])
 
     @allure.step('Получение заголовка страницы')
-    def get_page_title(self, locator, timeout=10):
-        WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+    def get_page_title(self, timeout=10):
+        WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(BasePageLocators.DZEN_ID))
         return self.driver.title

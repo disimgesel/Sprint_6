@@ -1,5 +1,4 @@
 from pages.base_page import BasePage
-from locators.home_page_locators import HomePageLocators
 from locators.order_page_locators import OrderPageLocators
 import allure
 
@@ -8,7 +7,7 @@ class OrderPage(BasePage):
 
     @allure.step('Клик на кнопку "Заказать" в теле страницы')
     def click_on_top_order_button(self):
-        self.click_on_element(HomePageLocators.BUTTON_ORDER_BODY)
+        self.click_on_element(OrderPageLocators.BUTTON_ORDER_BODY)
 
     @allure.step('Заполнение страницы "Для кого самокат".')
     def input_customer_information(self, name, surname, address, phone):
@@ -49,3 +48,14 @@ class OrderPage(BasePage):
     @allure.step('Проверка отображения кнопки "Посмотреть статус"')
     def check_status_button_is_displayed(self):
         return self.check_element_is_displaying(OrderPageLocators.CHECK_STATUS_ORDER)
+
+    @allure.step('Открываю форму заказа и получаю титл заказа')
+    def open_order_form_header(self):
+        self.wait_element(OrderPageLocators.BUTTON_ORDER_HEADER)
+        self.click_on_element(OrderPageLocators.BUTTON_ORDER_HEADER)
+        self.wait_element(OrderPageLocators.TITLE_ORDER_TEXT)
+        return self.get_text_from_element(OrderPageLocators.TITLE_ORDER_TEXT)
+
+    @allure.step('Ожидание кнопки "Далее"')
+    def wait_element_button_next(self):
+        self.wait_element(OrderPageLocators.BUTTON_NEXT)

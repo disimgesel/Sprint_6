@@ -2,8 +2,6 @@ from pages.home_page import HomePage
 from locators.home_page_locators import HomePageLocators
 from data import QuestionsText
 from data import Urls
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import pytest
 import allure
 
@@ -27,6 +25,6 @@ class TestQuestion:
     def test_questions_about_important(self, driver, locator_button, locator_ansver, expected_result):
         question = HomePage(driver)
         question.open_page(Urls.HOME_PAGE)
-        question.click_cookie_accept(HomePageLocators.BUTTON_ACCEPT_COOKIE)
+        question.click_cookie_accept()
         ansver = question.questions_about_important(locator_button, locator_ansver)
         assert ansver == expected_result

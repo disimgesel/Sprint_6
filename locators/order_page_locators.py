@@ -14,6 +14,8 @@ class OrderPageLocators:
     TELEPHONE_NUMBER = [By.XPATH, '//input[@placeholder="* Телефон: на него позвонит курьер"]']
     BUTTON_NEXT = [By.XPATH, '//button[text()="Далее"]']
     BUTTON_ACCEPT_COOKIE = [By.XPATH, '//button[@id="rcc-confirm-button"]']
+    BUTTON_ORDER_HEADER = [By.XPATH, ".//button[text() = 'Заказать' and @class = 'Button_Button__ra12g']"]
+    BUTTON_ORDER_BODY = [By.XPATH, ".//button[text() = 'Заказать' and @class = 'Button_Button__ra12g Button_Middle__1CSJM']"]
 
     # Страница  "Про аренду"
     TITLE_RENT_INFO_PAGE = [By.XPATH, '//div[contains(text(),"Про аренду")]']
